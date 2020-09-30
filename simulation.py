@@ -26,6 +26,7 @@ def evaluer_ligne(ligne):
 class Process :
 
     def recuperer_le_code(self):
+        """ va prendre le code depuis le fichier, et le nettoyer"""
         global nombreexec 
         nombreexec += 1
         with open(self.nom+'.s', 'r') as ce_script :
@@ -36,13 +37,13 @@ class Process :
             # print(len(code))
             i = 0
             while i < len(code):
-
+                # print(i, len(code))
                 if est_vide(code[i]):
                     code.pop(i)
-                    i -= 2
+                    i -= 1
                 elif code[i][0] == '#' : 
                     code.pop(i)
-                    i -= 2
+                    i -= 1
                 i += 1
             # print(code, len(code))
             return code
@@ -78,10 +79,7 @@ class Process :
             i += 1 
             self.ligne_en_cours_d_execution += 1
             self.scheduler_en_cours_d_utilisation.afficher_etat()
-
-
-        
-
+            print(nb_lignes_a_executer)
 
 
 
@@ -119,5 +117,6 @@ sd1 = Scheduler()
 # print(sd1.process_list)                      # on fait des tests
 # process1.execute()
 sd1.run("process_1.s")
+
 
 
