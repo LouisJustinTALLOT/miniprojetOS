@@ -24,6 +24,14 @@ def evaluer_ligne(ligne):
             return 'busy', int(ligne[5:])
     except:
         pass
+def remove_espace_liste(liste):
+    for i in range(len(liste)):
+        if i >= len(liste):
+            return
+        if liste[i] == ' ':
+            liste.pop(i)
+
+
 
 
 
