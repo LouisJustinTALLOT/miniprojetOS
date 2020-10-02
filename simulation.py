@@ -18,12 +18,6 @@ def est_vide(chaine : str):
             return False
     return True
 
-def evaluer_ligne(ligne):
-    try : 
-        if ligne[:4].lower() == 'busy':
-            return 'busy', int(ligne[5:])
-    except:
-        pass
 def remove_espace_liste(liste):
     for i in range(len(liste)):
         if i >= len(liste):
@@ -33,6 +27,18 @@ def remove_espace_liste(liste):
 
 
 
+def evaluer_ligne(ligne):
+    ligne.lower()
+    tab_ligne = ligne.split(' ')
+    remove_espace_liste(tab_ligne)
+    if tab_ligne[0] == 'busy':
+        return 'busy', int(tab_ligne[1])
+    if tab_ligne[0] == "fork":
+        return "fork", 0
+    if tab_ligne[0] == "exec":
+        return "exec", tab_ligne[1]
+    if tab_ligne[0] == "print":
+        return "print", tab_ligne[1:]
 
 
 
@@ -89,6 +95,19 @@ class Process :
             if commande == 'busy':
                 self.scheduler_en_cours_d_utilisation.heure += arg
 
+                self.sd_ut.heure += arg
+            if commande == 'print':
+                print(" ".join(arg))
+                self.sd_ut.heure += 1
+            if commande == "fork":
+                self.sd_ut.heure += 1
+            if commande == "exec" :
+                self.sd_ut.heure += 1
+                print(arg)
+                self.sd_ut.run(arg)
+                # pas besoin des 2 lignes suivantes...
+                # self.sd_ut.process_list.append(Process(arg,len(self.sd_ut.process_list)+1,sd_ut))
+                # self.sd_ut.execution_en_cours = len(self.sd_ut.process_list)
             i += 1 
             self.ligne_en_cours_d_execution += 1
             self.sd_ut.afficher_etat()
