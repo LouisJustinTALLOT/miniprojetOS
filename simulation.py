@@ -118,15 +118,11 @@ class Process :
 class Scheduler :
     
     def __init__(self):
-
         #on va démarrer le premier processus qui est init
-        pr_init = Process("init.s",1,self)
-
-        self.process_list = [pr_init]      #
+        # pr_init = Process("init.s",1,self)
+        self.process_list = []      #
         self.heure = 0                     # la clock du système 
-        self.execution_en_cours = pr_init  # pid du process en cours d'exécution
-    
-
+        self.execution_en_cours = None  # pid du process en cours d'exécution
 
     def run(self,fichier_de_script):     
         """
@@ -149,7 +145,7 @@ sd1 = Scheduler()
 
 # print(sd1.process_list)                      # on fait des tests
 # process1.execute()
-sd1.run("process_1.s")
+sd1.run("init.s") 
 
 
 
