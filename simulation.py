@@ -123,6 +123,9 @@ class Scheduler :
         self.heure = 0                     # la clock du système 
         self.execution_en_cours = None  # pid du process en cours d'exécution
 
+    def c_est_parti(self,process_init):
+        self.run(process_init)
+
     def run(self,fichier_de_script):     
         """cette fonction va créer un nouveau Process correspondant au fichier .s
         qu'on lui a fourni, l'ajouter à la process_list, l'exécuter"""
@@ -136,13 +139,13 @@ class Scheduler :
         print("\n")
 
 sd1 = Scheduler()
-
+sd1.c_est_parti("init.s")
 
 # process1 = Process("init.s",0,sd1)
 
 # print(sd1.process_list)                      # on fait des tests
 # process1.execute()
-sd1.run("init.s") 
+# sd1.run("init.s") 
 
 
 
