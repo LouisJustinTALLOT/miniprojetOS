@@ -46,8 +46,7 @@ class Process :
 
     def recuperer_le_code(self):
         """ va prendre le code depuis le fichier, et le nettoyer"""
-        global nombreexec 
-        nombreexec += 1
+       
         with open(self.nom+'.s', 'r') as ce_script :
             code = ce_script.read().split('\n')
 
@@ -72,7 +71,7 @@ class Process :
         self.pid = pid
         self.nom = nom_du_fichier[:-2]
         self.temps_de_calcul = 0
-        self.scheduler_en_cours_d_utilisation = scheduler_en_cours
+        self.sd_ut = scheduler_en_cours
         self.program_counter = 0
         self.code = self.recuperer_le_code()
         self.nb_instructions = len(self.code)
@@ -89,12 +88,10 @@ class Process :
         i  = 0
         while i < nb_lignes_a_executer and self.ligne_en_cours_d_execution < self.nb_instructions :
             # on va maintenant evaluer la ligne à executer
-
+            # print("i == ",i)
             commande , arg = evaluer_ligne(self.code[self.ligne_en_cours_d_execution])
-
+            # print(commande,arg)
             if commande == 'busy':
-                self.scheduler_en_cours_d_utilisation.heure += arg
-
                 self.sd_ut.heure += arg
             if commande == 'print':
                 print(" ".join(arg))
@@ -114,6 +111,8 @@ class Process :
             # print(nb_lignes_a_executer)
 
 
+###############################################################################
+
 
 class Scheduler :
     
@@ -125,10 +124,8 @@ class Scheduler :
         self.execution_en_cours = None  # pid du process en cours d'exécution
 
     def run(self,fichier_de_script):     
-        """
-        cette fonction va créer un nouveau Process correspondant au fichier .s
-        qu'on lui a fourni, l'ajouter à la process_list, l'exécuter
-        """
+        """cette fonction va créer un nouveau Process correspondant au fichier .s
+        qu'on lui a fourni, l'ajouter à la process_list, l'exécuter"""
         self.process_list.append(Process(fichier_de_script, len(self.process_list)+1,self))
         self.execution_en_cours = self.process_list[-1]
         self.execution_en_cours.execute()
