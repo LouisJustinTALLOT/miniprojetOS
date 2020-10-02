@@ -4,7 +4,12 @@ Ce programme a pour but de simuler un système d'exploitation
 
 """
 # import random as rd
-nombreexec = 0 
+
+def afficher_joliment(p_li):
+    for p in p_li:
+        print(p, end  = '\n')
+
+
 
 def est_vide(chaine : str):
  
@@ -78,8 +83,8 @@ class Process :
 
             i += 1 
             self.ligne_en_cours_d_execution += 1
-            self.scheduler_en_cours_d_utilisation.afficher_etat()
-            print(nb_lignes_a_executer)
+            self.sd_ut.afficher_etat()
+            # print(nb_lignes_a_executer)
 
 
 
@@ -106,8 +111,9 @@ class Scheduler :
         self.execution_en_cours.execute()
 
     def afficher_etat(self):
-        print(f"temps d'utilisation : {self.heure}, \n programmes en cours d'utilisation : {self.process_list}")
-
+        print(f"temps d'utilisation : {self.heure}, \nProgrammes en cours d'utilisation :") 
+        afficher_joliment(self.process_list)
+        print("\n")
 
 sd1 = Scheduler()
 
