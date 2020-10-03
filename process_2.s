@@ -4,5 +4,5 @@
 busy 2
 
 print process numero 2
-
+print_status
 busy 22
