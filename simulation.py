@@ -2,6 +2,7 @@
 Ce programme a pour but de simuler un système d'exploitation
 """
 # import random as rd
+import time
 
 def afficher_joliment(p_li):
     for p in p_li:
@@ -114,18 +115,31 @@ class Scheduler :
         #on va démarrer le premier processus qui est init
         # pr_init = Process("init.s",1,self)
         self.process_list = []      #
+        self.nom_pcs = []
         self.heure = 0                     # la clock du système 
         self.execution_en_cours = None  # pid du process en cours d'exécution
 
     def c_est_parti(self,process_init):
         self.run(process_init)
 
-    def run(self,fichier_de_script):     
+
+    def detect_recursion(self,p_a_lancer):
+        # print(p_a_lancer,self.nom_pcs)
+        # input("entrée pour continuer...")                                                     #############
+        if p_a_lancer in self.nom_pcs:
+            # print("nous sommes dans detect_recursion")
+            return True
+
+    def run(self,fichier_de_script):   
         """cette fonction va créer un nouveau Process correspondant au fichier .s
         qu'on lui a fourni, l'ajouter à la process_list, l'exécuter"""
+        if self.detect_recursion(fichier_de_script):
+            return
+        self.nom_pcs.append(fichier_de_script)
         self.process_list.append(Process(fichier_de_script, len(self.process_list)+1,self))
         self.execution_en_cours = self.process_list[-1]
         self.execution_en_cours.execute()
+        
 
     def afficher_etat(self):
         print(f"temps d'utilisation : {self.heure}, \nProgrammes en cours d'utilisation :") 
