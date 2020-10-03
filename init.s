@@ -11,3 +11,15 @@ fork
 exec boucle_1.s
 
 print on a quitté les boucles
+
+print fork 
+print_status
+exec process_1.s
+print_status
+
+exec process_1.s
+print_status
+exec boucle_1.s
+print_status
+exec process_1.s
+print_status
