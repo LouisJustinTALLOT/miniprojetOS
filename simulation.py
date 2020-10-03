@@ -1,15 +1,11 @@
 """
-
 Ce programme a pour but de simuler un système d'exploitation
-
 """
 # import random as rd
 
 def afficher_joliment(p_li):
     for p in p_li:
         print(p, end  = '\n')
-
-
 
 def est_vide(chaine : str):
  
@@ -25,8 +21,6 @@ def remove_espace_liste(liste):
         if liste[i] == ' ':
             liste.pop(i)
 
-
-
 def evaluer_ligne(ligne):
     ligne.lower()
     tab_ligne = ligne.split(' ')
@@ -40,8 +34,6 @@ def evaluer_ligne(ligne):
     if tab_ligne[0] == "print":
         return "print", tab_ligne[1:]
 
-
-
 class Process :
 
     def recuperer_le_code(self):
@@ -49,7 +41,6 @@ class Process :
        
         with open(self.nom+'.s', 'r') as ce_script :
             code = ce_script.read().split('\n')
-
             # print(len(code),code)
             # on va maintenant épurer le code
             # print(len(code))
@@ -65,7 +56,6 @@ class Process :
                 i += 1
             # print(code, len(code))
             return code
-
 
     def __init__(self,nom_du_fichier,pid, scheduler_en_cours):
         self.pid = pid
