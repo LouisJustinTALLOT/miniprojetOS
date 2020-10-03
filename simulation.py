@@ -109,7 +109,12 @@ class Process :
             self.ligne_en_cours_d_execution += 1
             self.sd_ut.afficher_etat()
             # print(nb_lignes_a_executer)
+        if self.ligne_en_cours_d_execution ==  self.nb_instructions  : 
+            print("je suis au bon endroit ca marche !!!")
+            if len(self.sd_ut.process_list) == 1:
+                print("FIN DE LA SIMULATION")
 
+            self.sd_ut.process_list.pop()
 
 ###############################################################################
 

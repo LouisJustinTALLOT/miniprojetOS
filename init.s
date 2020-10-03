@@ -1,4 +1,5 @@
 # programme d'initialisation
+print DEBUT DE LA SIMULATION
 
 busy 10
 fork 
