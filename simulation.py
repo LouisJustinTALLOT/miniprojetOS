@@ -34,6 +34,8 @@ def evaluer_ligne(ligne):
         return "exec", tab_ligne[1]
     if tab_ligne[0] == "print":
         return "print", tab_ligne[1:]
+    if tab_ligne[0] == "print_status":
+        return "print_status",0
 
 class Process :
 
@@ -92,6 +94,10 @@ class Process :
                 self.sd_ut.heure += 1
                 print(arg)
                 self.sd_ut.run(arg)
+
+            if commande == "print_status":
+                self.sd_ut.heure += 1
+                self.sd_ut.afficher_etat()
                 # pas besoin des 2 lignes suivantes...
                 # self.sd_ut.process_list.append(Process(arg,len(self.sd_ut.process_list)+1,sd_ut))
                 # self.sd_ut.execution_en_cours = len(self.sd_ut.process_list)
