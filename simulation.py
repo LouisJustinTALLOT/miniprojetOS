@@ -103,14 +103,15 @@ class Process :
                 # self.sd_ut.execution_en_cours = len(self.sd_ut.process_list)
             i += 1 
             self.ligne_en_cours_d_execution += 1
-            self.sd_ut.afficher_etat()
+            
             # print(nb_lignes_a_executer)
         if self.ligne_en_cours_d_execution ==  self.nb_instructions  : 
-            print("je suis au bon endroit ca marche !!!")
+            # print("je suis au bon endroit ca marche !!!")
             if len(self.sd_ut.process_list) == 1:
                 print("FIN DE LA SIMULATION")
 
             self.sd_ut.process_list.pop()
+            self.sd_ut.nom_pcs.pop()
 
 ###############################################################################
 
@@ -124,7 +125,8 @@ class Scheduler :
         self.nom_pcs = []
         self.heure = 0                     # la clock du système 
         self.execution_en_cours = None  # pid du process en cours d'exécution
-
+        self.pid_max = 0
+        self.dict_tous_les_pcs  = {}
     def c_est_parti(self,process_init):
         self.run(process_init)
 
@@ -142,7 +144,9 @@ class Scheduler :
         if self.detect_recursion(fichier_de_script):
             return
         self.nom_pcs.append(fichier_de_script)
-        self.process_list.append(Process(fichier_de_script, len(self.process_list)+1,self))
+        self.process_list.append(Process(fichier_de_script, self.pid_max+1,self))
+        self.dict_tous_les_pcs[self.pid_max+1]=fichier_de_script
+        self.pid_max += 1
         self.execution_en_cours = self.process_list[-1]
         self.execution_en_cours.execute()
         
@@ -154,7 +158,7 @@ class Scheduler :
 
 sd1 = Scheduler()
 sd1.c_est_parti("init.s")
-
+print(sd1.dict_tous_les_pcs)
 # process1 = Process("init.s",0,sd1)
 
 # print(sd1.process_list)                      # on fait des tests
