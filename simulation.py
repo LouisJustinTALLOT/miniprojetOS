@@ -39,7 +39,7 @@ class Process :
     def recuperer_le_code(self):
         """ va prendre le code depuis le fichier, et le nettoyer"""
        
-        with open(self.nom+'.s', 'r') as ce_script :
+        with open(self.nom, 'r') as ce_script :
             code = ce_script.read().split('\n')
             # print(len(code),code)
             # on va maintenant épurer le code
@@ -59,17 +59,16 @@ class Process :
 
     def __init__(self,nom_du_fichier,pid, scheduler_en_cours):
         self.pid = pid
-        self.nom = nom_du_fichier[:-2]
+        self.nom = nom_du_fichier
         self.temps_de_calcul = 0
         self.sd_ut = scheduler_en_cours
         self.program_counter = 0
         self.code = self.recuperer_le_code()
         self.nb_instructions = len(self.code)
         self.ligne_en_cours_d_execution = 0       # PARCE QU'ON A PAS ENCORE COMMENCE LE CODE
-        
 
     def __repr__(self):
-        return f"Process {self.nom} de pid {self.pid}" # \n et voici son code : {self.code}"
+        return f"Process {self.nom[:-2]} de pid {self.pid}" # \n et voici son code : {self.code}"
 
     def execute(self, nb_lignes_a_executer = -1):
         if nb_lignes_a_executer == -1 : 
